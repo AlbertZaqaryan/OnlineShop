@@ -19,3 +19,32 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Color(models.Model):
+
+    name = models.CharField('Color name', max_length=30)
+
+    def __str__(self):
+        return self.name
+    
+class Size(models.Model):
+
+    name = models.CharField('Size name', max_length=10)
+
+    def __str__(self):
+        return self.name
+
+    
+class Product(models.Model):
+
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='cat_prod')
+    image = models.ImageField('Product image', upload_to='products')
+    name = models.CharField('Product name', max_length=100)
+    color = models.ManyToManyField(Color)
+    size = models.ManyToManyField(Size)
+    price = models.PositiveIntegerField('Product price')
+    discount_price = models.PositiveIntegerField('Product discount price')
+    about = models.TextField()
+
+    def __str__(self):
+        return self.name
