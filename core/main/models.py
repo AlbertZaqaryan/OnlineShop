@@ -48,3 +48,14 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class Cart(models.Model):
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    count = models.PositiveIntegerField('Cart product count', default=1)
+    total_price = models.PositiveIntegerField('Cart total price')
+
+    def __str__(self):
+        return f'Cart product N{self.id}'
+
